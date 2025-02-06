@@ -2,6 +2,7 @@ import numpy as np
 from parse_data import processing_data
 from constants import *
 
+
 w1 = np.random.randn(INPUT_NEURONS, H_NEURONS)
 w2 = np.random.randn(H_NEURONS, OUT_NEURONS)
 b1 = np.random.randn(H_NEURONS)

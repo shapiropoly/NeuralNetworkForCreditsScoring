@@ -12,6 +12,7 @@ w1 = np.random.randn(INPUT_NEURONS, H_NEURONS)
 (x_train, y_train), (x_test, y_test) = processing_data()
 
 
+
 for x, y in zip(x_train, y_train):
 
     x = np.array(x, dtype=float)

@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 from constants import TEST_DATA_SHARE, TRAIN_DATA_SHARE
 
 
+
 def read_csv():
     with open("task_dataset100.csv", encoding='utf-8') as r_file:
 
