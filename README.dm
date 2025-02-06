@@ -1,5 +1,6 @@
 NeuralNetworkForCreditScoring
 
+
 The network receives input parameters about the client and decides whether to issue a loan or not.
 
 The project is under development.
