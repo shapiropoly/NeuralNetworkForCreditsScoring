@@ -55,13 +55,19 @@ def train(x_train, y_train):
 
             total_loss += loss(y, z)
 
+            # для внешнего слоя
             grad_error = -2 * (y - z)
             dz_dt2 = z * (1 - z)  # Производная сигмоиды
             dt2_dw2 = h1
 
+            # рассчитываем градиент для внешнего слоя
+            # –> для этого вычисляем произведение векторов h1
+            # * градиент функции ошибки по предсказаниям для слоя w2 (вектор)
+
             grad_w2 = np.outer(dt2_dw2, grad_error * dz_dt2)
             grad_b2 = grad_error * dz_dt2
 
+            # для внутреннего слоя
             d_error_dt2 = grad_error * dz_dt2
             dt2_dh1 = w2.T
             grad_h1 = np.dot(d_error_dt2, dt2_dh1)
