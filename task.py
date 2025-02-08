@@ -2,7 +2,6 @@ import numpy as np
 from parse_data import processing_data
 from constants import *
 
-
 w1 = np.random.randn(INPUT_NEURONS, H_NEURONS)
 w2 = np.random.randn(H_NEURONS, OUT_NEURONS)
 b1 = np.random.randn(H_NEURONS)
@@ -46,7 +45,7 @@ def train(x_train, y_train):
 
                 # для внешнего слоя
                 grad_error = -2 * (y - z)
-                dz_dt2 = z * (1 - z)
+                dz_dt2 = z * (1 - z) # производная для сигмоидальной активационной функции
                 dt2_dw2 = h1
 
                 # рассчитываем градиент для внешнего слоя
@@ -70,9 +69,6 @@ def train(x_train, y_train):
                 b2 -= LEARNING_RATE * grad_b2.sum(axis=0)
 
         print(f"Epoch {epoch+1}/{EPOCHS}, Total Loss: {total_loss}")
-
-
-# TODO сделать метод, которые будет анализировать обученная нейросеть
 
 
 if __name__ == '__main__':

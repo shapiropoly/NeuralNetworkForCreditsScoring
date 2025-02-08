@@ -3,10 +3,8 @@ from sklearn.model_selection import train_test_split
 from constants import TEST_DATA_SHARE, TRAIN_DATA_SHARE
 
 
-
 def read_csv():
     with open("task_dataset100.csv", encoding='utf-8') as r_file:
-
         X = []
         y = []
 
@@ -20,8 +18,8 @@ def read_csv():
                 X.append(x)
                 y.append([row[4]])
             count += 1
-
         return X, y
+
 
 def processing_data():
     X, y = read_csv()
