@@ -1,8 +1,8 @@
 # Neural Network for Credit Scoring
 
-At the moment, the network is working with an error: at some point during work, the parameter total_loss starts jumping up and down. I do not know why this is happening, and I am trying to find the error and fix it.
-
 This project is a simple neural network designed to predict whether a client should be approved for a loan based on input parameters.
+
+At the moment, the network is working with an error: at some point during work, the parameter total_loss starts jumping up and down. I do not know why this is happening, and I am trying to find the error and fix it.
 
 ## Architecture
 Input Layer: accepts client parameters (age, job, marital, housing).
