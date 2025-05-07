@@ -1,14 +1,16 @@
 import numpy as np
 from constants import *
+import matplotlib.pyplot as plt
 
-def relu(t):
+def relu(t, alpha=0.01):
     """
     Функция активации ReLU
 
+    :param alpha:
     :param t: векторное умножение входного параметра x на вес w1 и добавление смещения b1
     :return: возвращает t, если t > 0, иначе возвращает 0
     """
-    return np.maximum(0, t)
+    return np.where(t > 0, t, 0)
 
 
 def sigmoid_activation(t):
@@ -28,7 +30,8 @@ def sigmoid_derivative(z):
     :param z: результат функции сигмоиды
     :return: производная сигмоиды: z * (1 - z)
     """
-    return sigmoid_activation(z) * (1 - sigmoid_activation(z))
+    s = sigmoid_activation(z)
+    return s * (1 - s)
 
 
 def loss(y, z):
@@ -58,6 +61,7 @@ def train(x_train, y_train, w1, w2, b1, b2):
 
     n = len(x_train)
     total_loss = float('inf')
+    loss_history = []
     epoch = 0
 
     while (epoch < EPOCHS) and (total_loss > EPS):
@@ -80,7 +84,7 @@ def train(x_train, y_train, w1, w2, b1, b2):
 
             # для внешнего слоя
             grad_error = -2 * (y - z)
-            dz_dt2 = sigmoid_derivative(z)
+            dz_dt2 = sigmoid_derivative(t2)
             dt2_dw2 = h1
 
             # рассчитываем градиент для внешнего слоя
@@ -101,6 +105,7 @@ def train(x_train, y_train, w1, w2, b1, b2):
             agr_grad_b1 += grad_b1
             agr_grad_b2 += grad_b2
 
+
         agr_grad_w1 /= n
         agr_grad_b1 /= n
         agr_grad_w2 /= n
@@ -112,8 +117,17 @@ def train(x_train, y_train, w1, w2, b1, b2):
         b2 -= LEARNING_RATE * agr_grad_b2
 
         epoch += 1
+        loss_history.append(total_loss)
         total_loss /= n
-        print(f"Epoch {epoch}/{EPOCHS}, Total Loss: {total_loss}")
+
+        if epoch % 100 == 0:
+            print(f"Epoch {epoch}/{EPOCHS}, Total Loss: {total_loss}")
+
+    plt.plot(loss_history,  label='loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.legend()
+    plt.show()
     return w1, w2, b1, b2
 
 
