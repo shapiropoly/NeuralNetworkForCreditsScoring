@@ -1,16 +1,16 @@
 import numpy as np
-from constants import *
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 
-def relu(t, alpha=0.01):
+from constants import *
+
+def relu(t):
     """
     Функция активации ReLU
 
-    :param alpha:
     :param t: векторное умножение входного параметра x на вес w1 и добавление смещения b1
     :return: возвращает t, если t > 0, иначе возвращает 0
     """
-    return np.where(t > 0, t, 0)
+    return np.maximum(0, t)
 
 
 def sigmoid_activation(t):
@@ -30,8 +30,7 @@ def sigmoid_derivative(z):
     :param z: результат функции сигмоиды
     :return: производная сигмоиды: z * (1 - z)
     """
-    s = sigmoid_activation(z)
-    return s * (1 - s)
+    return sigmoid_activation(z) * (1 - sigmoid_activation(z))
 
 
 def loss(y, z):
@@ -105,7 +104,6 @@ def train(x_train, y_train, w1, w2, b1, b2):
             agr_grad_b1 += grad_b1
             agr_grad_b2 += grad_b2
 
-
         agr_grad_w1 /= n
         agr_grad_b1 /= n
         agr_grad_w2 /= n
@@ -117,13 +115,13 @@ def train(x_train, y_train, w1, w2, b1, b2):
         b2 -= LEARNING_RATE * agr_grad_b2
 
         epoch += 1
-        loss_history.append(total_loss)
         total_loss /= n
+        loss_history.append(total_loss)
 
         if epoch % 100 == 0:
             print(f"Epoch {epoch}/{EPOCHS}, Total Loss: {total_loss}")
 
-    plt.plot(loss_history,  label='loss')
+    plt.plot(loss_history, label='loss')
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
     plt.legend()
